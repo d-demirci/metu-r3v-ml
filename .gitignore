@@ -1,0 +1,4 @@
+env/
+pydasm/
+capstone/
+*.py[co]
