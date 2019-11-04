@@ -1,0 +1,10 @@
+capstone==4.0.1
+certifi==2019.9.11
+chardet==3.0.4
+future==0.18.2
+idna==2.8
+pefile==2019.4.18
+pkg-resources==0.0.0
+pydasm==1.5
+requests==2.22.0
+urllib3==1.25.6
