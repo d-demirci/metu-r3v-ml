@@ -3,6 +3,7 @@
 
 '''
 Extract the opcode from the objdump of a binary
+this code is highly influenced from : https://github.com/dhn/bin2op/blob/master/bin2op.py
 '''
 
 import re
@@ -63,8 +64,6 @@ def parse(obj, syntax, formats):
     
     lines = lines.split(b'\n')[3:]
 
-    replace_list = {'DWORD': 'A', 'QWORD': 'A', 'BYTE':'A',',':" "}
-
     shellcode = ""
     code = []
     opcodes = []
@@ -91,9 +90,6 @@ def parse(obj, syntax, formats):
             instruction_split = instruction_clean.split(' ')
             opcode = instruction_split[0] if len(instruction_split) > 0 else 'none' 
             opcodes.append(opcode)        
-            # if len(instruction_split) > 1 :
-            #     for operand in instruction_split[1:]:
-            #         operands.extend(operand.split(','))
             operand = instruction_split[1:] if len(instruction_split) > 1 else 'none' 
             operands.extend(operand)
         

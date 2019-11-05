@@ -66,8 +66,7 @@ The first word is 'push'. It’s total count in the sentence is 1.
 Also, in the list of words above, its position is 1th from the starting . 
 I’ll just update its vector and it will now be at the index that is residing in the sorted list. 
 [0, 0, 0, 0, 0, 0,.....?....]
-we see that push is at position 654
-the second word is 
+we see that push is at position 657
 so we check the index of push in sorted list. 
 """
 print("index of push : {}".format(ops.index('push'))) #prints 657
