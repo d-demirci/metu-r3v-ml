@@ -12,7 +12,7 @@ all addresses with a pattern of r'(0x[0-9a-fA-F]+)(?:)?' will be replaced with a
 DWORD PTR, QWORD PTR and BYTE PTR will be replaced with APTR
 
 """
-file = './a.exe'
+file = './b.exe'
 syntax = "intel"
 shellcode, code, opcodes, operands, instructions = parse(file, syntax, None)
 """

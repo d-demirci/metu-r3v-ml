@@ -56,54 +56,58 @@ def unique(list1,verbose=False):
 
 # thanks zerosum0x0
 def parse(obj, syntax, formats):
-    objdump = ['objdump', '-d', '-M', syntax, obj]
+    try:
+        objdump = ['objdump', '-d', '-M', syntax, obj]
 
-    lines = check_output(objdump)
+        lines = check_output(objdump)
     
-    lines = lines.split(b'Disassembly of section')[1]
+        lines = lines.split(b'Disassembly of section')[1]
     
-    lines = lines.split(b'\n')[3:]
+        lines = lines.split(b'\n')[3:]
 
-    shellcode = ""
-    code = []
-    opcodes = []
-    operands = []
-    instructions = []
-    for line in lines:
-        line = line.strip()
+        shellcode = ""
+        code = []
+        opcodes = []
+        operands = []
+        instructions = []
+        for line in lines:
+            line = line.strip()
 
-        tabs = line.split(b'\t')
-        if (len(tabs) < 2):
-            continue
-        bytes = tabs[1].strip()
+            tabs = line.split(b'\t')
+            if (len(tabs) < 2):
+                continue
+            bytes = tabs[1].strip()
 
-        instruction = "."
-        if (len(tabs) == 3):
-            instruction = tabs[2].strip().decode("utf-8")
-            instruction_clean = instruction.replace(',',' ')
-            instruction_clean = re.sub(' +', ' ', instruction_clean)
-            instruction_clean = re.sub(r'([D|Q]{0,}WORD |BYTE )', 'A', instruction_clean)
-            instruction_clean = re.sub(r'(0x[0-9a-fA-F]+)(?:)?', 'addr', instruction_clean)
+            instruction = "."
+            if (len(tabs) == 3):
+                instruction = tabs[2].strip().decode("utf-8")
+                # instruction_clean = instruction.replace(',',' ')
+                instruction_clean = re.sub(' +', ' ', instruction)
+                # instruction_clean = re.sub(r'([D|Q]{0,}WORD |BYTE )', 'A', instruction_clean)
+                # instruction_clean = re.sub(r'(0x[0-9a-fA-F]+)(?:)?', 'addr', instruction_clean)
             
             
-            instructions.append(instruction_clean)
-            instruction_split = instruction_clean.split(' ')
-            opcode = instruction_split[0] if len(instruction_split) > 0 else 'none' 
-            opcodes.append(opcode)        
-            operand = instruction_split[1:] if len(instruction_split) > 1 else 'none' 
-            operands.extend(operand)
-        
-        bytes = bytes.split(b' ')
-        shellcodeline = ""
-        for byte in bytes:
-            shellcodeline +=  byte.decode("utf-8") + " "
+                instructions.append(instruction_clean)
+                instruction_split = instruction_clean.split(' ')
+                opcode = instruction_split[0] if len(instruction_split) > 0 else 'none' 
+                opcodes.append(opcode)        
+                operand = instruction_split[1:] if len(instruction_split) > 1 else 'none' 
+                operands.extend(operand)
 
-        shellcode += shellcodeline
-        if formats is not None:
-            c = '\t%-*s# %s' % (32, '"'+shellcodeline+'"', instruction)
-        else:
-            c = '%-*s/* %s */' % (32, '"'+shellcodeline+'"', instruction)
-        code.append(c)
+            bytes = bytes.split(b' ')
+            shellcodeline = ""
+            for byte in bytes:
+                shellcodeline +=  byte.decode("utf-8") + " "
+
+            shellcode += shellcodeline
+            if formats is not None:
+                c = '\t%-*s# %s' % (32, '"'+shellcodeline+'"', instruction)
+            else:
+                c = '%-*s/* %s */' % (32, '"'+shellcodeline+'"', instruction)
+            code.append(c)
+    except Exception as e:
+        print(str(e))
+        return None
 
     return shellcode, code, opcodes, operands, instructions
 

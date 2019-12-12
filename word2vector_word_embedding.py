@@ -44,4 +44,4 @@ words = list(model.wv.vocab)
 words = words[0:20]
 for i, word in enumerate(words):
 	pyplot.annotate(word, xy=(result[i, 0], result[i, 1]))
-pyplot.savefig('foo3.pdf')
+pyplot.savefig('foo5.pdf')

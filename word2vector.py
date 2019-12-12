@@ -5,8 +5,9 @@ import math
 import sys
 np.set_printoptions(threshold=sys.maxsize)
 
-file = './a.exe'
+file =sys.argv[1]
 syntax = "intel"
+
 shellcode, code, opcodes, operands, instructions = parse(file, syntax, None)
 
 sentences = instructions
