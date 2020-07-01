@@ -17,7 +17,7 @@ matplotlib==3.1.1
 numpy==1.17.3
 pefile==2019.4.18
 pkg-resources==0.0.0
-pydasm==1.5
+#pydasm==1.5
 pyparsing==2.4.4
 python-dateutil==2.8.0
 requests==2.22.0
