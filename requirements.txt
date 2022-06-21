@@ -14,7 +14,7 @@ jmespath==0.9.4
 joblib==0.14.0
 kiwisolver==1.1.0
 matplotlib==3.1.1
-numpy==1.17.3
+numpy==1.22.0
 pefile==2019.4.18
 pkg-resources==0.0.0
 #pydasm==1.5
